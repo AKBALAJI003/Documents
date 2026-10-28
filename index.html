@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="All my important documents in one place.">
+  <title>My Documents</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --border: #e4e9f1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #142744, #2456a6);
+      color: white;
+      padding: 48px 20px 42px;
+    }
+
+    .container {
+      width: min(900px, 100%);
+      margin: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand-icon {
+      font-size: 34px;
+      background: #ffffff20;
+      padding: 12px;
+      border-radius: 15px;
+    }
+
+    h1 { margin: 0; font-size: clamp(28px, 5vw, 42px); }
+    header p { color: #dbeafe; margin-bottom: 0; }
+
+    main { padding: 30px 20px 60px; }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    h2 { font-size: 22px; margin: 0; }
+
+    #search {
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font: inherit;
+      width: min(100%, 300px);
+      background: white;
+      color: var(--text);
+    }
+
+    .documents {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .document {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      box-shadow: 0 3px 12px #162b4d08;
+    }
+
+    .file-icon {
+      flex-shrink: 0;
+      width: 52px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #eaf1ff;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .details { flex: 1; min-width: 0; }
+    .details h3 { margin: 0 0 5px; font-size: 16px; overflow-wrap: anywhere; }
+    .details p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .open-link {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 9px 13px;
+      border-radius: 8px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .open-link:hover { background: #1d4ed8; }
+    .open-link:focus-visible, #search:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 3px;
+    }
+
+    .open-link.disabled {
+      background: #e9edf4;
+      color: #667085;
+      cursor: not-allowed;
+    }
+
+    #empty { color: var(--muted); padding: 24px 0; }
+    footer { text-align: center; color: var(--muted); padding: 20px; font-size: 13px; }
+
+    @media (max-width: 600px) {
+      header { padding: 34px 18px; }
+      main { padding: 24px 16px 40px; }
+      .documents { grid-template-columns: 1fr; }
+      .toolbar { align-items: stretch; flex-direction: column; }
+      #search { width: 100%; }
+      .document { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">📁</div>
+        <div>
+          <h1>My Documents</h1>
+          <p>All my important documents in one place.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="toolbar">
+      <h2>My document library</h2>
+      <input id="search" type="search"
+        placeholder="Search documents..."
+        aria-label="Search documents">
+    </div>
+
+    <div id="documents" class="documents"></div>
+    <p id="empty" hidden>No documents match your search.</p>
+  </main>
+
+  <footer>My Documents · Your files, one click away</footer>
+
+  <script>
+    // Replace each empty URL with your actual online document link.
+    // Example: url: "https://example.com/my-document.pdf"
+
+    const documents = [
+      { name: "Main tracker", type: "Excel", url: "https://lifesignsus-my.sharepoint.com/:x:/g/personal/ricardo_lifesigns_us/IQAnB1gAblgDQLf--lAFuobJAZIkCScQ-X02eAh8t5G1C4Y?e=4%3aS1ifPK&at=9" },
+      { name: "HSE Tracker", type: "Excel", url: "https://1drv.ms/x/c/fb80f7f738151657/IQC5QqJ1Nv4OR6x7SO548klXAfveroIrn6whF33aeBM4mIA" },
+      { name: "QC Tracker", type: "Excel", url: "https://lifesignsus-my.sharepoint.com/:x:/g/personal/manojkumar_lifesigns_us/IQCWQKlWhNf-TL7UqfvDl3NhAei8kstlXxwPtTydo-X6A4w?e=lLHYvk" },
+{ name: "Network Devices", type: "Excel", url: "https://1drv.ms/x/c/fb80f7f738151657/IQBZoVxL1XOcTZh15Ohbs5-iAY7q_CvOUTuzESB8utJ40-A" },
+{ name: "Shift Schedule", type: "Excel", url: "https://onedrive.live.com/:x:/g/personal/FB80F7F738151657/IQDN1ln4gs_AQYRlDw1hVsTTAdqa77Q4n2MYr6q2hK_e3Ug?resid=FB80F7F738151657!sf859d6cdcf8241c084650f0d6156c4d3&ithint=file%2Cxlsx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy9mYjgwZjdmNzM4MTUxNjU3L0lRRE4xbG40Z3NfQVFZUmxEdzFoVnNUVEFkcWE3N1E0bjJNWXI2cTJoS19lM1Vn" }
+    ];
+
+    const container = document.getElementById("documents");
+    const search = document.getElementById("search");
+    const empty = document.getElementById("empty");
+
+    function safeUrl(value) {
+      try {
+        const url = new URL(value);
+        return ["https:", "http:"].includes(url.protocol)
+          ? url.href : "";
+      } catch {
+        return "";
+      }
+    }
+
+    function fileType(url) {
+      try {
+        const path = new URL(url).pathname.toLowerCase();
+        const ext = path.match(/\.([a-z0-9]+)$/)?.[1];
+        const known = {
+          pdf: "PDF", doc: "WORD", docx: "WORD",
+          xls: "EXCEL", xlsx: "EXCEL",
+          ppt: "SLIDES", pptx: "SLIDES",
+          jpg: "IMAGE", jpeg: "IMAGE", png: "IMAGE",
+          txt: "TEXT", csv: "CSV"
+        };
+        return known[ext] || "FILE";
+      } catch {
+        return "FILE";
+      }
+    }
+
+    function render() {
+      const query = search.value.trim().toLowerCase();
+      const filtered = documents.filter(doc =>
+        doc.name.toLowerCase().includes(query) ||
+        doc.type.toLowerCase().includes(query)
+      );
+
+      container.replaceChildren();
+
+      filtered.forEach(doc => {
+        const url = safeUrl(doc.url);
+        const card = document.createElement("article");
+        card.className = "document";
+
+        const icon = document.createElement("div");
+        icon.className = "file-icon";
+        icon.textContent = url ? fileType(url) : "FILE";
+        icon.setAttribute("aria-hidden", "true");
+
+        const details = document.createElement("div");
+        details.className = "details";
+
+        const title = document.createElement("h3");
+        title.textContent = doc.name;
+
+        const description = document.createElement("p");
+        description.textContent = url
+          ? fileType(url) + " document"
+          : "Link not added yet";
+
+        const link = document.createElement("a");
+        link.className = "open-link";
+        link.textContent = url ? "Open document ↗" : "Add link first";
+
+        if (url) {
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.setAttribute("aria-label", "Open " + doc.name + " in a new tab");
+        } else {
+          link.removeAttribute("href");
+          link.setAttribute("aria-disabled", "true");
+          link.classList.add("disabled");
+        }
+
+        details.append(title, description, link);
+        card.append(icon, details);
+        container.append(card);
+      });
+
+      empty.hidden = filtered.length !== 0;
+    }
+
+    search.addEventListener("input", render);
+    render();
+  </script>
+</body>
+</html>
